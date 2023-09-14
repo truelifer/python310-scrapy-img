@@ -11,5 +11,6 @@ node {
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-truelifer') {
         app.push("${VERSION}")
         app.push("latest")
+        }
     }
 }
