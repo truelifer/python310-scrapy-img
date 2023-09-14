@@ -5,6 +5,11 @@ node {
         VERSION = GIT_COMMIT_HASH.take(7)
     }
     stage('docker build') {
-        app = docker.build("truelifer/python310-scrapy-img:${VERSION}")
+        app = docker.build("truelifer/python310-scrapy-img")
+    }
+    stage('docker push') {
+        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-truelifer') {
+        app.push("${VERSION}")
+        app.push("latest")
     }
 }
