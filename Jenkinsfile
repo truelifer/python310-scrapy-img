@@ -4,7 +4,7 @@ node {
         GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
         VERSION = GIT_COMMIT_HASH.take(7)
     }
-    stage('Build image') {
+    stage('docker build') {
         app = docker.build("truelifer/python310-scrapy-img:${VERSION}")
     }
 }
