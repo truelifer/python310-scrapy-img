@@ -1,7 +1,10 @@
 node {
     stage ('git clone') {
         checkout scm
-        sh 'pwd'
-        sh 'ls'
+        GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
+        VERSION = GIT_COMMIT_HASH.take(7)
+    }
+    stage('Build image') {
+        app = docker.build("truelifer/python310-scrapy-img:${VERSION}")
     }
 }
